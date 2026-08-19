@@ -1,0 +1,21 @@
+<li
+  appInView
+  mode="once"
+  [from]="inViewFrom"
+  [to]="inViewTo"
+  [config]="inViewConfig"
+  [delayIn]="index() * 90"
+>
+  <div
+    appProgressTrigger
+    start="top bottom"
+    end="center center"
+    [frameInterval]="30"
+    (progressChange)="onProgressChange($event)"
+  >
+    <p class="text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
+      {{ stat().prefix ?? '' }}{{ value() }}{{ stat().suffix }}
+    </p>
+    <p class="mt-3 text-sm text-white/55">{{ stat().label }}</p>
+  </div>
+</li>

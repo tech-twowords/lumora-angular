@@ -1,0 +1,29 @@
+@if (phase() !== 'done') {
+  <div
+    aria-hidden
+    [style.transform]="exitTransform()"
+    class="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8 rounded-b-card bg-ink text-white"
+  >
+    <div
+      [style.opacity]="contentOpacity()"
+      [style.transform]="contentTransform()"
+      class="flex flex-col items-center gap-5 px-6 text-center"
+    >
+      <span class="flex items-center gap-2.5 text-2xl font-semibold tracking-tight sm:text-3xl">
+        <app-logo-mark class="text-3xl text-accent-from sm:text-4xl" />
+        Lumora
+      </span>
+      <p class="max-w-[24ch] text-sm text-white/55">Bold ideas, shipped with quiet precision.</p>
+    </div>
+
+    <div class="flex w-[min(22rem,72vw)] flex-col gap-3">
+      <div class="h-px w-full overflow-hidden bg-white/15">
+        <div class="h-full bg-accent-from transition-[width] duration-100 ease-out" [style.width.%]="progress()"></div>
+      </div>
+      <div class="flex items-center justify-between text-xs font-medium uppercase tracking-wide text-white/45">
+        <span>Loading</span>
+        <span class="tabular-nums text-white/80">{{ progressLabel() }}</span>
+      </div>
+    </div>
+  </div>
+}

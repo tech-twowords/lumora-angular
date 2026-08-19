@@ -1,0 +1,88 @@
+<header
+  appInView
+  mode="once"
+  [enabled]="intro.ready()"
+  [from]="headerFrom"
+  [to]="headerTo"
+  [config]="headerConfig"
+  [delayIn]="150"
+  class="absolute inset-x-0 top-0 z-50"
+>
+  <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-5 sm:px-8 sm:py-6">
+    <button
+      type="button"
+      (click)="scrollHome()"
+      [attr.aria-label]="brand + ' — home'"
+      class="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+    >
+      <span
+        appHover
+        [from]="brandHoverFrom"
+        [to]="brandHoverTo"
+        [config]="brandHoverConfig"
+        class="flex items-center gap-2 text-lg font-semibold tracking-tight"
+      >
+        <app-logo-mark class="text-xl text-accent" />
+        <span>{{ brand }}</span>
+      </span>
+    </button>
+
+    <nav aria-label="Primary" class="hidden lg:block">
+      <ul class="flex items-center gap-8 text-sm font-medium">
+        @for (link of nav; track link.label; let i = $index) {
+          <li>
+            <button
+              type="button"
+              (click)="handleNav(link.href)"
+              [attr.aria-current]="i === 0 ? 'page' : null"
+              class="inline-flex w-fit items-center gap-1 text-foreground/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <span
+                appHover
+                [from]="navHoverFrom"
+                [to]="navHoverTo"
+                [config]="navHoverConfig"
+                class="inline-flex items-center gap-1"
+              >
+                {{ link.label }}
+                @if (link.hasDropdown) {
+                  <span aria-hidden class="text-xs opacity-60">▾</span>
+                }
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <p class="hidden items-center gap-3 rounded-control border border-line/80 bg-white/40 px-3 py-2 text-xs text-foreground/70 backdrop-blur-sm md:flex">
+        <span class="text-foreground/45">{{ meta.statusLabel }}</span>
+        <span class="min-w-[3.5rem] font-medium tabular-nums text-foreground">
+          {{ clock.ready() ? clock.time() : meta.time }}
+        </span>
+        <span aria-hidden class="text-foreground/30">•</span>
+        <time class="font-medium text-foreground">
+          {{ clock.ready() ? clock.date() : meta.date }}
+        </time>
+      </p>
+      <button
+        type="button"
+        (click)="openMenu()"
+        aria-label="Open menu"
+        class="rounded-control border border-line/80 bg-white/40 backdrop-blur-sm transition-colors hover:bg-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <span
+          appHover
+          [from]="menuHoverFrom"
+          [to]="menuHoverTo"
+          [config]="menuHoverConfig"
+          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium uppercase tracking-wide"
+        >
+          <app-icon-grid class="text-sm" />
+          <span class="hidden sm:inline">Menu</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>

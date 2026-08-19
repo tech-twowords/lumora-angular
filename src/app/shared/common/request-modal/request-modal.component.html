@@ -1,0 +1,104 @@
+@if (visible()) {
+  <div
+    [style.opacity]="opacity()"
+    class="fixed inset-0 z-[110] flex items-end justify-center bg-foreground/30 p-4 backdrop-blur-xl sm:items-center"
+    (click)="closeModal()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="request-modal-title"
+  >
+    <div
+      (click)="$event.stopPropagation()"
+      [style.opacity]="opacity()"
+      [style.transform]="'translateY(' + y() + 'px)'"
+      class="relative w-full max-w-lg overflow-hidden rounded-card bg-background p-6 shadow-2xl ring-1 ring-line sm:p-8"
+    >
+      <button
+        type="button"
+        (click)="closeModal()"
+        aria-label="Close"
+        class="absolute right-4 top-4 grid size-9 place-items-center rounded-pill bg-surface text-foreground/60 transition hover:bg-surface-2 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <app-icon-x class="text-sm" />
+      </button>
+
+      @if (status() === 'success') {
+        <div class="flex flex-col items-center gap-4 py-8 text-center">
+          <span class="grid size-14 place-items-center rounded-pill bg-ink text-2xl text-accent-from">
+            <app-logo-mark />
+          </span>
+          <h2 id="request-modal-title" class="text-2xl font-semibold tracking-tight">
+            Request received
+          </h2>
+          <p class="max-w-[32ch] text-sm text-foreground/60">
+            Thanks for reaching out — we'll get back to you within one business day.
+          </p>
+          <app-pill-button label="Close" variant="dark" (buttonClick)="closeModal()" />
+        </div>
+      } @else {
+        <div class="mb-6 flex flex-col gap-1.5">
+          <span class="inline-flex items-center gap-2 text-sm font-medium text-foreground/60">
+            <span class="size-1.5 rounded-pill bg-accent"></span>
+            Start a project
+          </span>
+          <h2 id="request-modal-title" class="text-2xl font-semibold tracking-tight sm:text-3xl">
+            Tell us what you're building.
+          </h2>
+        </div>
+
+        <form (submit)="handleSubmit($event)" class="flex flex-col gap-4">
+          <label class="flex flex-col gap-1.5">
+            <span class="text-xs font-medium uppercase tracking-wide text-foreground/50">Name</span>
+            <input
+              required
+              type="text"
+              autocomplete="name"
+              [value]="form().name"
+              (input)="updateField('name', $any($event.target).value)"
+              class="w-full rounded-control border border-line bg-surface/50 px-4 py-3 text-sm outline-none transition focus:border-foreground/30 focus:bg-background"
+              placeholder="Your name"
+            />
+          </label>
+          <label class="flex flex-col gap-1.5">
+            <span class="text-xs font-medium uppercase tracking-wide text-foreground/50">Email</span>
+            <input
+              required
+              type="email"
+              autocomplete="email"
+              [value]="form().email"
+              (input)="updateField('email', $any($event.target).value)"
+              class="w-full rounded-control border border-line bg-surface/50 px-4 py-3 text-sm outline-none transition focus:border-foreground/30 focus:bg-background"
+              placeholder="you@company.com"
+            />
+          </label>
+          <label class="flex flex-col gap-1.5">
+            <span class="text-xs font-medium uppercase tracking-wide text-foreground/50">Project</span>
+            <textarea
+              required
+              rows="4"
+              [value]="form().message"
+              (input)="updateField('message', $any($event.target).value)"
+              class="w-full resize-none rounded-control border border-line bg-surface/50 px-4 py-3 text-sm outline-none transition focus:border-foreground/30 focus:bg-background"
+              placeholder="A few words about your project, timeline, and budget."
+            ></textarea>
+          </label>
+
+          @if (error()) {
+            <p class="text-sm text-accent" role="alert">{{ error() }}</p>
+          }
+
+          <div class="mt-2 flex items-center justify-between gap-4">
+            <p class="text-xs text-foreground/45">We reply within one business day.</p>
+            <app-pill-button
+              [label]="status() === 'submitting' ? 'Sending…' : 'Send request'"
+              type="submit"
+              variant="dark"
+              [withArrow]="true"
+              arrow="up-right"
+            />
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,18 @@
+<a
+  #linkRoot
+  [href]="href()"
+  [attr.aria-current]="ariaCurrent() ?? null"
+  [attr.aria-label]="ariaLabel() ?? null"
+  class="inline-flex w-fit focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent {{ className() }}"
+>
+  <span
+    appHover
+    [trigger]="linkRoot"
+    [from]="from()"
+    [to]="to()"
+    [config]="hoverConfig"
+    class="inline-flex items-center gap-1"
+  >
+    <ng-content />
+  </span>
+</a>

@@ -1,0 +1,33 @@
+<section aria-labelledby="stats-heading" class="bg-background">
+  <div class="mx-auto max-w-shell px-5 pb-20 sm:px-8 lg:pb-28">
+    <div
+      appInView
+      mode="once"
+      [from]="cardInViewFrom"
+      [to]="cardInViewTo"
+      [config]="cardInViewConfig"
+      class="rounded-card bg-ink px-6 py-12 text-white sm:px-8 sm:py-16 md:px-16"
+    >
+      <app-eyebrow tone="light">{{ stats().eyebrow }}</app-eyebrow>
+
+      <h2 id="stats-heading" class="mt-4 max-w-[20ch] text-3xl font-medium tracking-tight md:text-4xl">
+        <app-animated-var-text
+          [text]="stats().heading"
+          tag="h2"
+          mode="once"
+          [overflow]="true"
+          [lineIn]="headingLineIn"
+          [lineOut]="headingLineOut"
+          [lineConfig]="headingLineConfig"
+          [delayIn]="120"
+        />
+      </h2>
+
+      <ul class="mt-14 grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4">
+        @for (stat of stats().items; track stat.label; let i = $index) {
+          <app-stat-counter [stat]="stat" [index]="i" />
+        }
+      </ul>
+    </div>
+  </div>
+</section>

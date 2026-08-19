@@ -1,0 +1,36 @@
+<section id="works" aria-labelledby="portfolio-heading" class="bg-background">
+  <div class="mx-auto max-w-shell px-5 pb-20 pt-10 sm:px-8 lg:pb-28">
+    <div
+      appInView
+      mode="once"
+      [from]="eyebrowInViewFrom"
+      [to]="eyebrowInViewTo"
+      class="flex justify-center"
+    >
+      <app-eyebrow class="rounded-pill border border-line px-4 py-1.5">
+        {{ portfolio().eyebrow }}
+      </app-eyebrow>
+    </div>
+
+    <div class="mb-12 mt-5 flex justify-center">
+      <h2 id="portfolio-heading" class="w-fit text-4xl font-semibold tracking-tight sm:text-5xl">
+        <app-animated-var-text
+          [text]="portfolio().heading"
+          tag="h2"
+          mode="once"
+          [overflow]="true"
+          [lineIn]="headingLineIn"
+          [lineOut]="headingLineOut"
+          [lineConfig]="headingLineConfig"
+          [delayIn]="120"
+        />
+      </h2>
+    </div>
+
+    <ul class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      @for (item of portfolio().items; track item.id; let i = $index) {
+        <app-portfolio-card [item]="item" [index]="i" />
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<!--
+  The caller positions this element (e.g. `absolute inset-0` or `relative`);
+  the base image and the canvas both size to it, so it must be positioned.
+-->
+<div #container class="overflow-hidden {{ className() }}">
+  <img
+    [src]="beforeSrc()"
+    [alt]="alt()"
+    [attr.sizes]="sizes()"
+    [attr.loading]="loading()"
+    [attr.fetchpriority]="fetchPriority()"
+    class="absolute inset-0 h-full w-full object-cover"
+  />
+  <canvas #canvas aria-hidden="true" class="pointer-events-none absolute inset-0 h-full w-full"></canvas>
+</div>

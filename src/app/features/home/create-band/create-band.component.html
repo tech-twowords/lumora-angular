@@ -1,0 +1,30 @@
+<section aria-label="We create future" class="bg-background">
+  <ul class="mx-auto flex max-w-shell flex-col gap-3 px-5 py-10 sm:flex-row sm:gap-4 sm:px-8">
+    @for (word of words; track word.label + '-' + $index; let i = $index) {
+      <li class="flex-1">
+        <div
+          appInView
+          mode="once"
+          [from]="wordInFrom"
+          [to]="wordInTo"
+          [config]="wordInConfig"
+          [delayIn]="delayFor(i)"
+        >
+          <div
+            appHover
+            [from]="wordHoverFrom"
+            [to]="wordHoverTo"
+            [config]="wordHoverConfig"
+            class="grid h-24 place-items-center rounded-pill text-3xl font-medium sm:h-40 sm:text-4xl {{ surfaceClass(word.variant) }}"
+          >
+            @if (word.isArrow) {
+              <app-icon-arrow-right aria-hidden class="text-4xl sm:text-5xl" />
+            } @else {
+              <span>{{ word.label }}</span>
+            }
+          </div>
+        </div>
+      </li>
+    }
+  </ul>
+</section>

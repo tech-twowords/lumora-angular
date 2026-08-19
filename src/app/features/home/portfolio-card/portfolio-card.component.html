@@ -1,0 +1,59 @@
+<li
+  appInView
+  mode="once"
+  [from]="inViewFrom"
+  [to]="inViewTo"
+  [config]="inViewConfig"
+  [delayIn]="index() * 90"
+>
+  <a
+    [href]="item().href"
+    [attr.aria-label]="'Open the ' + item().name + ' case study'"
+    class="block rounded-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+  >
+    <article
+      #cardRoot
+      appHover
+      [from]="hoverFrom"
+      [to]="hoverTo"
+      [config]="hoverConfig"
+      class="relative min-h-[22rem] overflow-hidden rounded-card bg-ink p-6 text-white ring-1 ring-white/5 sm:min-h-[26rem] sm:p-8"
+    >
+      <!-- top meta row -->
+      <div class="relative z-10 flex items-center justify-between text-xs uppercase tracking-wide text-white/45">
+        <span>{{ item().category }} — {{ item().year }}</span>
+        <span
+          appHover
+          [trigger]="cardRoot"
+          [from]="arrowFrom"
+          [to]="arrowTo"
+          [config]="arrowConfig"
+          class="grid size-11 place-items-center rounded-pill bg-white/10 text-lg text-white ring-1 ring-white/15"
+        >
+          <app-icon-arrow-up-right />
+        </span>
+      </div>
+
+      <!-- centered brand mark -->
+      <div aria-hidden class="pointer-events-none absolute inset-0 grid place-items-center">
+        <span class="flex items-start gap-1 text-white/90">
+          <app-logo-mark class="text-7xl" />
+          <span class="text-xs text-white/60">®</span>
+        </span>
+      </div>
+
+      <!-- bottom meta -->
+      <div class="absolute inset-x-6 bottom-6 sm:inset-x-8 sm:bottom-8">
+        <h3 class="text-2xl font-medium tracking-tight sm:text-3xl">{{ item().name }}</h3>
+        <p class="mt-2 max-w-md text-sm text-white/55">{{ item().description }}</p>
+        <ul class="mt-5 flex flex-wrap items-center gap-2">
+          @for (tag of item().tags; track tag) {
+            <li>
+              <app-tag-chip tone="light">{{ tag }}</app-tag-chip>
+            </li>
+          }
+        </ul>
+      </div>
+    </article>
+  </a>
+</li>

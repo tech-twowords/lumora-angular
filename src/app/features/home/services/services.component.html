@@ -1,0 +1,29 @@
+<section id="services" aria-labelledby="services-heading" class="bg-background">
+  <div class="mx-auto max-w-shell px-5 py-20 sm:px-8 lg:py-28">
+    <div appInView mode="once" [from]="eyebrowInViewFrom" [to]="eyebrowInViewTo">
+      <app-eyebrow>{{ services().eyebrow }}</app-eyebrow>
+    </div>
+
+    <h2
+      id="services-heading"
+      class="mb-12 mt-5 max-w-[16ch] text-4xl font-semibold tracking-tight sm:mb-14 sm:text-5xl"
+    >
+      <app-animated-var-text
+        [text]="services().heading"
+        tag="h2"
+        mode="once"
+        [overflow]="true"
+        [lineIn]="headingLineIn"
+        [lineOut]="headingLineOut"
+        [lineConfig]="headingLineConfig"
+        [delayIn]="120"
+      />
+    </h2>
+
+    <ul>
+      @for (item of services().items; track item.index; let i = $index) {
+        <app-service-row [item]="item" [index]="i" />
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<button
+  type="button"
+  role="switch"
+  [attr.aria-checked]="on()"
+  [attr.aria-label]="label()"
+  [attr.aria-disabled]="disabled() ? true : null"
+  [disabled]="disabled()"
+  (click)="onClick()"
+  class="relative h-6 w-11 shrink-0 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground {{ on() ? 'bg-foreground' : 'bg-foreground/15' }} {{ disabled() ? 'cursor-not-allowed opacity-55' : 'cursor-pointer' }}"
+>
+  <span
+    [style.transform]="'translateX(' + x() + 'px)'"
+    class="absolute left-[3px] top-[3px] block h-[18px] w-[18px] rounded-full bg-background shadow"
+  ></span>
+</button>

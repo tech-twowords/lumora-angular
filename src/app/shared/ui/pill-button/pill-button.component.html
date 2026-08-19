@@ -1,0 +1,49 @@
+<ng-template #content let-root="root">
+  <span [class]="contentClass()">
+    <span>{{ label() }}</span>
+    @if (withArrow()) {
+      <span
+        appHover
+        [trigger]="root"
+        [from]="badgeFrom"
+        [to]="badgeTo()"
+        [config]="hoverBadgeConfig"
+        [class]="badgeClass()"
+      >
+        @if (arrow() === 'up-right') {
+          <app-icon-arrow-up-right />
+        } @else {
+          <app-icon-arrow-right />
+        }
+      </span>
+    }
+  </span>
+</ng-template>
+
+@if (href()) {
+  <a #root [href]="href()" [class]="rootClass()">
+    <span
+      appHover
+      [trigger]="root"
+      [from]="scaleFrom"
+      [to]="scaleTo"
+      [config]="hoverScaleConfig"
+      class="inline-block"
+    >
+      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ root: root }" />
+    </span>
+  </a>
+} @else {
+  <button #root [type]="type()" (click)="onButtonClick()" [class]="rootClass()">
+    <span
+      appHover
+      [trigger]="root"
+      [from]="scaleFrom"
+      [to]="scaleTo"
+      [config]="hoverScaleConfig"
+      class="inline-block"
+    >
+      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ root: root }" />
+    </span>
+  </button>
+}

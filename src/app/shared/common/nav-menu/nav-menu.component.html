@@ -1,0 +1,57 @@
+@if (visible()) {
+  <div [style.opacity]="opacity()" class="fixed inset-0 z-[115] flex flex-col bg-ink text-white">
+    <div class="mx-auto flex w-full max-w-shell items-center justify-between px-5 py-5 sm:px-8 sm:py-6">
+      <span class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+        <app-logo-mark class="text-xl text-accent-from" />
+        {{ brand() }}
+      </span>
+      <button
+        type="button"
+        (click)="closeMenu()"
+        aria-label="Close menu"
+        class="inline-flex items-center gap-2 rounded-control border border-white/15 px-4 py-2 text-xs font-medium uppercase tracking-wide text-white/70 transition hover:border-white/40 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <app-icon-x class="text-sm" />
+        Close
+      </button>
+    </div>
+
+    <nav
+      aria-label="Overlay"
+      class="mx-auto flex w-full max-w-shell flex-1 flex-col justify-center px-5 sm:px-8"
+    >
+      <ul class="flex flex-col gap-1">
+        @for (link of navLinks(); track link.label; let index = $index) {
+          <li>
+            <button
+              type="button"
+              (click)="handleNav(link.href)"
+              [style.transitionDelay.ms]="index * 45 + 80"
+              [class]="'group flex w-full items-center gap-4 py-2 text-left text-4xl font-semibold tracking-tight transition-all duration-500 ease-out sm:text-6xl ' + (entered() ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')"
+            >
+              <span class="text-base font-normal text-white/30 transition group-hover:text-accent-from">
+                0{{ index + 1 }}
+              </span>
+              <span class="text-white/70 transition-colors duration-300 group-hover:text-white">
+                {{ link.label }}
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div
+      class="mx-auto flex w-full max-w-shell flex-col gap-3 border-t border-white/10 px-5 py-6 text-xs uppercase tracking-wide text-white/45 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+    >
+      <span>{{ clockLabel() }}</span>
+      <button
+        type="button"
+        (click)="startProject()"
+        class="text-white/70 underline-offset-4 transition hover:text-white hover:underline"
+      >
+        Start a project →
+      </button>
+    </div>
+  </div>
+}

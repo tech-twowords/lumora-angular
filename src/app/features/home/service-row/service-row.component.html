@@ -1,0 +1,41 @@
+<li
+  appInView
+  mode="once"
+  [from]="inViewFrom"
+  [to]="inViewTo"
+  [config]="inViewConfig"
+  [delayIn]="index() * 80"
+  class="border-t border-line first:border-t-0"
+>
+  <a
+    [href]="item().href"
+    class="block rounded-card-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+  >
+    <div
+      #rowRoot
+      appHover
+      [from]="rowHoverFrom"
+      [to]="rowHoverTo"
+      [config]="rowHoverConfig"
+      class="flex items-center gap-4 rounded-card-sm py-6 sm:gap-6 sm:py-8"
+    >
+      <span class="w-7 shrink-0 text-sm font-medium text-foreground/40 sm:w-10">
+        {{ item().index }}
+      </span>
+      <h3 class="flex-1 text-2xl font-medium tracking-tight sm:text-3xl md:text-4xl">
+        {{ item().title }}
+      </h3>
+      <p class="hidden max-w-xs text-sm text-foreground/55 lg:block">{{ item().description }}</p>
+      <span
+        appHover
+        [trigger]="rowRoot"
+        [from]="arrowFrom"
+        [to]="arrowTo"
+        [config]="arrowConfig"
+        class="grid size-10 shrink-0 place-items-center rounded-pill bg-ink text-base text-white sm:size-12"
+      >
+        <app-icon-arrow-up-right />
+      </span>
+    </div>
+  </a>
+</li>

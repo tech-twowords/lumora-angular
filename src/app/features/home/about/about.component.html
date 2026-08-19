@@ -1,0 +1,97 @@
+<section id="about" aria-labelledby="about-heading" class="bg-background">
+  <div class="mx-auto grid max-w-shell grid-cols-1 items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:py-28">
+    <!-- Left — globe -->
+    <div class="relative min-h-[14rem] lg:min-h-[20rem]">
+      <app-icon-globe
+        aria-hidden
+        class="absolute -left-4 top-1/2 -translate-y-1/2 text-[12rem] text-foreground/10 sm:text-[16rem] lg:-left-6 lg:text-[20rem]"
+      />
+      <app-eyebrow class="relative">{{ about.eyebrow }}</app-eyebrow>
+      <div
+        appInView
+        mode="once"
+        [from]="globeLabelFrom"
+        [to]="globeLabelTo"
+        class="absolute bottom-0 left-0 flex items-center gap-3 text-sm text-foreground/70"
+      >
+        <app-icon-globe class="text-2xl text-foreground" />
+        <span class="max-w-[14rem]">{{ about.globeLabel }}</span>
+      </div>
+    </div>
+
+    <!-- Right — statement -->
+    <div class="flex flex-col gap-10">
+      <h2
+        id="about-heading"
+        class="text-2xl font-medium leading-snug tracking-tight sm:text-3xl"
+      >
+        <app-animated-var-text
+          [text]="about.statement.lead"
+          mode="once"
+          [lineIn]="{ y: '0', opacity: 1 }"
+          [lineOut]="{ y: '24', opacity: 0 }"
+          [lineStagger]="35"
+          [lineConfig]="wordConfig"
+        /><app-animated-var-text
+          [text]="about.statement.muted"
+          mode="once"
+          [lineIn]="{ y: '0', opacity: 1 }"
+          [lineOut]="{ y: '24', opacity: 0 }"
+          [lineStagger]="35"
+          [lineConfig]="wordConfig"
+          [delayIn]="mutedDelayIn()"
+          class="text-muted"
+        />
+      </h2>
+
+      <div
+        appInView
+        mode="once"
+        [from]="footerFrom"
+        [to]="footerTo"
+        [delayIn]="200"
+        class="flex flex-wrap items-end justify-between gap-6 border-t border-line pt-6"
+      >
+        <div class="flex flex-col gap-3">
+          <p class="text-sm text-foreground/45">{{ about.socialLabel }}</p>
+          <ul class="flex items-center gap-2">
+            @for (social of about.socials; track social.label) {
+              <li>
+                <a
+                  [href]="social.href"
+                  [attr.aria-label]="social.label"
+                  class="grid size-9 place-items-center rounded-pill text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  [class.bg-accent]="social.icon === 'x'"
+                  [class.text-white]="social.icon === 'x'"
+                  [class.bg-surface]="social.icon !== 'x'"
+                  [class.text-foreground/70]="social.icon !== 'x'"
+                  [class.hover:text-foreground]="social.icon !== 'x'"
+                >
+                  <span
+                    appHover
+                    [from]="socialHoverFrom"
+                    [to]="socialHoverTo"
+                    [config]="socialHoverConfig"
+                    class="inline-flex"
+                  >
+                    @if (social.icon === 'x') {
+                      <app-icon-x />
+                    } @else {
+                      <app-icon-circle-dot />
+                    }
+                  </span>
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+        <app-pill-button
+          [label]="about.cta.label"
+          [href]="about.cta.href"
+          variant="outline"
+          [withArrow]="true"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+<footer class="relative overflow-hidden rounded-t-card bg-ink text-white">
+  <div class="relative z-10 mx-auto max-w-shell px-5 pb-10 pt-20 sm:px-8 lg:pt-24">
+    <!-- CTA -->
+    <div class="flex flex-col gap-8 border-b border-white/10 pb-16 lg:flex-row lg:items-end lg:justify-between">
+      <h2 class="max-w-[16ch] text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+        <app-animated-var-text
+          [text]="footer().cta.heading"
+          tag="h2"
+          mode="once"
+          [overflow]="true"
+          [lineIn]="headingLineIn"
+          [lineOut]="headingLineOut"
+          [lineStagger]="100"
+          [lineConfig]="headingLineConfig"
+        />
+      </h2>
+      <app-pill-button
+        [label]="footer().cta.button.label"
+        variant="light"
+        [withArrow]="true"
+        arrow="up-right"
+        (buttonClick)="openModal()"
+      />
+    </div>
+
+    <!-- Columns -->
+    <div class="grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
+      <div class="flex flex-col gap-4">
+        <span class="flex items-center gap-2 text-lg font-semibold">
+          <app-logo-mark class="text-xl" />
+          {{ brand() }}
+        </span>
+        <p class="max-w-xs text-sm text-white/55">{{ footer().tagline }}</p>
+      </div>
+
+      @for (column of footer().columns; track column.title) {
+        <nav [attr.aria-label]="column.title" class="flex flex-col gap-4">
+          <p class="text-xs uppercase tracking-wide text-white/40">{{ column.title }}</p>
+          <ul class="flex flex-col gap-3 text-sm">
+            @for (link of column.links; track link.label) {
+              <li>
+                <app-animated-link [href]="link.href" class="text-white">
+                  {{ link.label }}
+                </app-animated-link>
+              </li>
+            }
+          </ul>
+        </nav>
+      }
+    </div>
+
+    <!-- Legal bar -->
+    <div class="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/45 sm:flex-row">
+      <p>{{ footer().legal.copyright }}</p>
+      <ul class="flex items-center gap-6">
+        @for (link of footer().legal.links; track link.label) {
+          <li>
+            <app-animated-link
+              [href]="link.href"
+              class="text-white/70"
+              [from]="legalLinkFrom"
+              [to]="legalLinkTo"
+            >
+              {{ link.label }}
+            </app-animated-link>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <!-- Brand watermark -->
+  <span
+    aria-hidden
+    class="pointer-events-none absolute inset-x-0 -bottom-6 z-0 select-none text-center font-bold leading-none text-watermark text-white/5"
+  >
+    {{ footer().brandWatermark }}
+  </span>
+</footer>

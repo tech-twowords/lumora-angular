@@ -1,0 +1,130 @@
+<section
+  id="home"
+  aria-labelledby="hero-heading"
+  class="relative isolate overflow-hidden rounded-b-card bg-hero-to"
+>
+  <!-- Full-bleed background — `before` shown, `after` revealed on a cursor trail -->
+  <app-liquid-reveal
+    [beforeSrc]="'/assets/hero/after.jpg'"
+    [afterSrc]="'/assets/hero/before.jpg'"
+    alt="Portrait of a model wearing Lumora eyewear"
+    class="absolute inset-0 z-0"
+    [brushRadius]="143"
+  />
+
+  <!-- Legibility vignette — keeps the header / status bar readable over the photo -->
+  <div
+    aria-hidden
+    class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-background/35 via-transparent to-background/35"
+  ></div>
+
+  <!-- Giant brand watermark over the photo -->
+  <span
+    appInView
+    mode="once"
+    [enabled]="intro.ready()"
+    [from]="watermarkFrom"
+    [to]="watermarkTo"
+    [config]="watermarkConfig"
+    [delayIn]="300"
+    aria-hidden
+    class="pointer-events-none absolute inset-x-0 bottom-[7rem] z-[1] select-none text-center font-bold leading-none text-watermark text-white/40"
+  >
+    {{ hero.brandWatermark }}
+  </span>
+
+  <div class="relative z-20 mx-auto flex max-w-shell flex-col gap-8 px-5 pb-20 pt-28 sm:px-8 lg:grid lg:min-h-lvh lg:grid-cols-12 lg:gap-10 lg:pb-28 lg:pt-36">
+    <!-- Left — headline & CTAs -->
+    <div class="relative z-10 order-1 flex flex-col gap-7 lg:order-none lg:col-span-7">
+      <div
+        appInView
+        mode="once"
+        [enabled]="intro.ready()"
+        [from]="eyebrowFrom"
+        [to]="eyebrowTo"
+        [delayIn]="200"
+      >
+        <app-eyebrow>{{ hero.eyebrow }}</app-eyebrow>
+      </div>
+
+      <h1
+        id="hero-heading"
+        class="max-w-[18ch] text-4xl font-semibold leading-[0.98] tracking-tight sm:text-5xl md:text-6xl"
+      >
+        <app-animated-var-text
+          [text]="hero.headingLines.join(' ')"
+          mode="once"
+          [overflow]="true"
+          [lineIn]="{ y: '0%', opacity: 1 }"
+          [lineOut]="{ y: '100%', opacity: 0 }"
+          [lineStagger]="120"
+          [lineConfig]="headingLineConfig"
+          [delayIn]="250"
+        />
+      </h1>
+
+      <div
+        appInView
+        mode="once"
+        [enabled]="intro.ready()"
+        [from]="ratingFrom"
+        [to]="ratingTo"
+        [delayIn]="650"
+        class="flex items-center gap-3"
+      >
+        <span class="flex text-accent" aria-hidden>
+          @for (star of starIndices; track $index) {
+            <app-icon-star class="text-base" />
+          }
+        </span>
+        <span class="text-sm font-medium text-foreground/70">{{ hero.customers }}</span>
+      </div>
+
+      <div
+        appInView
+        mode="once"
+        [enabled]="intro.ready()"
+        [from]="ctaFrom"
+        [to]="ctaTo"
+        [delayIn]="750"
+        class="flex flex-wrap items-center gap-3"
+      >
+        <app-pill-button
+          [label]="hero.primaryCta.label"
+          (buttonClick)="openModal()"
+          variant="dark"
+          [withArrow]="true"
+        />
+        <app-pill-button
+          [label]="hero.secondaryCta.label"
+          (buttonClick)="scrollToWorks()"
+          variant="outline"
+        />
+      </div>
+    </div>
+
+    <!-- Right — explore card & partners -->
+    <div class="relative z-10 order-2 flex w-full flex-col items-start gap-8 lg:col-span-5 lg:order-none lg:items-end">
+      <app-hero-card [cards]="hero.cards" [enabled]="intro.ready()" />
+      <app-partners [label]="hero.partnersLabel" [partners]="hero.partners" [enabled]="intro.ready()" />
+    </div>
+  </div>
+
+  <!-- Bottom status bar -->
+  <div
+    appInView
+    mode="once"
+    [enabled]="intro.ready()"
+    [from]="footerFrom"
+    [to]="footerTo"
+    [delayIn]="900"
+    class="relative z-20 mx-auto flex max-w-shell items-center justify-between gap-3 border-t border-foreground/10 px-5 py-5 text-xs font-medium uppercase tracking-wide text-foreground/60 sm:px-8"
+  >
+    <span>{{ hero.footer.left }}</span>
+    <span class="hidden sm:inline">{{ hero.footer.center }}</span>
+    <span class="inline-flex items-center gap-2">
+      {{ hero.footer.right }}
+      <span aria-hidden>↓</span>
+    </span>
+  </div>
+</section>

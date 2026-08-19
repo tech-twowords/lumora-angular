@@ -1,0 +1,63 @@
+@if (visible()) {
+  <div class="fixed inset-0 z-[100] font-sans" [style.opacity]="opacity()">
+    <div aria-hidden (mousedown)="closeModal()" class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+    <div
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="titleId"
+      [style.transform]="'translate(-50%, -50%) scale(' + scale() + ')'"
+      class="absolute left-1/2 top-1/2 flex max-h-[calc(100dvh-1.5rem)] w-[calc(100vw-1.5rem)] max-w-[560px] flex-col gap-5 overflow-hidden rounded-xl border border-foreground/10 bg-background p-5 text-foreground shadow-2xl sm:p-7"
+    >
+      <header class="flex items-start justify-between gap-3">
+        <h2 [id]="titleId" class="text-xl font-medium leading-tight">Cookie preferences</h2>
+        <button
+          type="button"
+          (click)="closeModal()"
+          aria-label="Close cookie preferences"
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-foreground/10 text-foreground hover:bg-foreground/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </button>
+      </header>
+
+      <p class="text-sm leading-relaxed text-foreground/60">
+        Choose which categories of cookies we're allowed to use. You can change this any time.
+        See our
+        <a
+          href="/privacy-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground underline underline-offset-2"
+          >privacy policy</a
+        >.
+      </p>
+
+      <div class="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto py-1">
+        @for (category of categories; track category.key) {
+          <div class="flex items-start justify-between gap-4 rounded-[10px] border border-foreground/10 px-4 py-3.5">
+            <div class="flex min-w-0 flex-col gap-1">
+              <h3 class="text-sm font-medium leading-snug">{{ category.title }}</h3>
+              <p class="text-xs leading-relaxed text-foreground/60">{{ category.body }}</p>
+            </div>
+            <app-cookie-toggle
+              [on]="valueFor(category)"
+              [disabled]="!!category.required"
+              [label]="category.title"
+              (toggle)="toggleCategory(category)"
+            />
+          </div>
+        }
+      </div>
+
+      <footer class="mt-1 flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <app-cookie-button variant="secondary" (clicked)="rejectAll()">Reject all</app-cookie-button>
+        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:items-center">
+          <app-cookie-button variant="secondary" (clicked)="handleSave()">Save preferences</app-cookie-button>
+          <app-cookie-button (clicked)="acceptAll()">Accept all</app-cookie-button>
+        </div>
+      </footer>
+    </div>
+  </div>
+}

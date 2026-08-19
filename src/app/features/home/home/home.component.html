@@ -1,0 +1,24 @@
+<app-page-loader />
+
+<a
+  href="#main"
+  class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-control focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+>
+  Skip to content
+</a>
+
+<app-header />
+
+<main id="main">
+  <app-hero />
+  <app-about />
+  <app-create-band />
+  <app-portfolio [portfolio]="content.portfolio" />
+  <app-services [services]="content.services" />
+  <app-stats [stats]="content.stats" />
+</main>
+
+<app-footer [brand]="content.brand" [footer]="content.footer" />
+
+<app-nav-menu />
+<app-request-modal />

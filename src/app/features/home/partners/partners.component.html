@@ -1,0 +1,30 @@
+<div
+  appInView
+  mode="once"
+  [enabled]="enabled()"
+  [from]="inViewFrom"
+  [to]="inViewTo"
+  [config]="inViewConfig"
+  [delayIn]="550"
+  class="w-full max-w-sm lg:w-[19rem]"
+>
+  <p class="mb-3 text-left text-xs font-medium text-foreground/45 lg:text-right">
+    {{ label() }}
+  </p>
+  <ul class="grid grid-cols-4 gap-x-4 gap-y-3">
+    @for (partner of partners(); track partner.name + '-' + $index) {
+      <li>
+        <span
+          appHover
+          [from]="hoverFrom"
+          [to]="hoverTo"
+          [config]="hoverConfig"
+          class="flex items-center gap-1.5 text-xs text-foreground/70"
+        >
+          <app-icon-circle-dot class="text-sm text-foreground/40" />
+          <span class="truncate">{{ partner.name }}</span>
+        </span>
+      </li>
+    }
+  </ul>
+</div>
